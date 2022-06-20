@@ -9,7 +9,11 @@ const arrayTodos = [
 ];
 
 //Estudar essa atribuição de parâmetro objeto...
-const Todos = ({ todos }) => {
+const Todos = ({ todos }) => { 
+  async function deleteTodo(todo){
+    await axios.delete(`http://localhost:3030/todos/${todo.id}`)
+  }
+  
 	return (
 		<div className="todos">
 			{todos.map((todo) => {
@@ -53,12 +57,6 @@ function App() {
 		getTodos();
 		setinputVisibility(!inputVisibility);
 	}
-
-  
-  async function deleteTodo(todo){
-    await axios.delete(`http://localhost:3030/todos/${todo.id}`)
-  }
-
 
 	const [todos, setTodos] = useState([]); //Estudar esse array.. é o estado inicial? (lista vazia)
 	const [inputValue, setInputValue] = useState("");
