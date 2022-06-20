@@ -13,8 +13,10 @@ datasource db {
 // npx prisma studio (pode substituir o dbeaver na visualização de tabelas)
 // não esquecer de dar npmx install @prisma/client
 
+//Obs: posso passar um default no status, mas não é necessário 
+
 model todo{
   id Int @id @default(autoincrement())
   name String
-  status Boolean
+  status Boolean @default(false)
 }

@@ -1,23 +1,26 @@
 // @ts-nocheck
 const express = require("express");
-const { PrismaClient } = require("@prisma/client") //Pacote escopado (garante que vem de uma organização confiável)
-const allToDos = [ { name: "sexo", status: false } ];
 const toDosRoutes = express.Router();
 
+const { PrismaClient } = require("@prisma/client") //Pacote escopado (garante que vem de uma organização confiável)
 const prisma = new PrismaClient(); //Injetando o prisma via construtor
 
 //Create
-toDosRoutes.post('/todos', (request, response) => {
-	// const nome = request.body.name; 
+toDosRoutes.post('/todos', async(request, response) => {
     const { name } = request.body;
-    //Faz o bind do objeto retornado, por ex: request.body tem uma propriedade chamada "name"? caso tenha atribui esse valor à variável name;
-    allToDos.push({name, status:false});
-    return response.status(201).json(allToDos);
+    const todo = await prisma.todo.create({
+        data:{
+            name
+        },
+    })
+    
+    return response.status(201).json(todo);
 });
 
 //Read
-toDosRoutes.get('/todos', (request, response) =>{
-    return response.status(200).json(allToDos);
+toDosRoutes.get('/todos', async (request, response) =>{
+    const todos = await prisma.todo.findMany();
+    return response.status(200).json(todos);
 })
 //Update
 
