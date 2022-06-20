@@ -1,11 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
+//url é o usuário criado no DB;
+
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:postgres@localhost:5455/postgres"
+}
+
+// Para adicionar a migração basta dar: npx prisma migrate dev Todo [nome da migration]...
+// npx prisma studio (pode substituir o dbeaver na visualização de tabelas)
+// não esquecer de dar npmx install @prisma/client
+
+model todo{
+  id Int @id @default(autoincrement())
+  name String
+  status Boolean
 }

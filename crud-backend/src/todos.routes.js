@@ -1,9 +1,10 @@
 // @ts-nocheck
-const { response } = require("express");
 const express = require("express");
-
+const { PrismaClient } = require("@prisma/client") //Pacote escopado (garante que vem de uma organização confiável)
 const allToDos = [ { name: "sexo", status: false } ];
 const toDosRoutes = express.Router();
+
+const prisma = new PrismaClient(); //Injetando o prisma via construtor
 
 //Create
 toDosRoutes.post('/todos', (request, response) => {
