@@ -13,7 +13,15 @@ const Todos = ({ todos }) => {
   async function deleteTodo(todo){
     await axios.delete(`http://localhost:3030/todos/${todo.id}`)
   }
-  
+
+  async function updateTodoStatus(todo){
+    await axios.put(`http://localhost:3030/todos/`,{
+      id: todo.id,
+      status: !todo.status
+    })
+
+  }
+
 	return (
 		<div className="todos">
 			{todos.map((todo) => {
@@ -25,7 +33,7 @@ const Todos = ({ todos }) => {
 							style={{ backgroundColor: todo.status ? "lightgreen" : "White" }}
 						></button>
 						<p>{todo.name}</p>
-						<button>
+						<button onClick={() => updateTodoStatus(todo)}>
 							<AiOutlineEdit size={20} />
 						</button>
 						<button onClick={() => deleteTodo(todo)}>
